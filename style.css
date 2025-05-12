@@ -16,6 +16,8 @@ body{
     height: 100vh;
     overflow: hidden;
     background: linear-gradient(to right, rgba(255,255,255), rgba(254,215,173));
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 nav{
@@ -23,6 +25,9 @@ nav{
     height: 10vh;
     overflow: hidden;
     position: sticky;
+    top: 0;
+    z-index: 100;
+
 }
 
 .nav-container{
@@ -112,10 +117,6 @@ section{
     width: 100%;
 }
 
-.main-container .profile-container img{
-    width: 200%;
-}
-
 .main-container .content{
     color: black;
     width: 40%;
@@ -142,6 +143,7 @@ section{
     text-shadow: 0 0 5px rgb(109,67,0);
     position: relative;
     transition: 0.3s linear;
+    max-width: 100%;
 }
 
 .typewriter span::before{
@@ -155,7 +157,10 @@ section{
     width: calc(100% + 8px);
     height: 100%;
     border-left: 3px solid black;
-    animation: cursor 0.6s linear infinite;
+    /*animation: blink 0.7s infinite;*/
+    
+    animation: blink 0.7s infinite;
+    display: inline-block;
 }
 
 @keyframes cursor{
@@ -176,7 +181,7 @@ section{
     }
 }
 
-content p{
+.content p{
     font-size:clamp(0.4rem, 0.2rem + 9vw, 1rem);
     margin: 10px 0;
 }
@@ -197,7 +202,7 @@ content p{
 }
 
 .social-links i:hover{
-    scale: 1.3;
+    transform: scale(1.3);
     color: white;
     background-color: rgb(109,67,0);
     filter: drop-shadow(0 0 10px rgb(109,67,0));
@@ -218,7 +223,7 @@ content p{
 }
 
 .content button:hover{
-    scale: 1,1;
+    transform: scale(1.1);
     color: rgb(109,67,0);
     border: 2px solid rgb(109,67,0);
     background-color: transparent;
@@ -226,49 +231,53 @@ content p{
     box-shadow: 0 0 40px rgb(109,67,0);
 }
 
-@media (max-width:884px) {
-    body{
-        overflow-y: visible;
-    }
-
-    nav .logo{
-        position: absolute;
-        top: 16px;
-        left: 15px;
-        font-size: 1.5rem;
-    }
-
-    .main-container{
-        display: flex;
-        flex-direction: column;
-    }
-
-    .nav-container .links{
-        display: none;
-    }
-
-    .hamburg,.cancel{
-        display: block;
-    }
-
-    .main-container .content{
-        width: 80%;
-    }
-
-    .social-links i{
-        width: 2.5rem;
-        height: 2.5rem;
-        font-size: 1.5rem;
-    }
-    .cancel{
-        color: white;
-    }
-
-    .main-container .image{
-        width: 80%;
-        margin-bottom: 0px;
-    }
+.menu-icon {
+    display: none;
+    font-size: 2rem;
+    cursor: pointer;
 }
+
+@media (max-width: 884px) {
+    .nav-container .links {
+        display: none;
+        flex-direction: column;
+        position: absolute;
+        top: 10vh;
+        right: 0;
+        background-color: #f2f2f2;
+        width: 100%;
+        z-index: 99;
+        text-align: center;
+    }
+
+    .menu-icon {
+        display: block;
+        position: absolute;
+        top: 20px;
+        right: 20px;
+        cursor: pointer;
+        font-size: 2rem;
+        cursor: pointer;
+        z-index: 100;
+    }
+
+    #menu-toggle:checked ~ .links {
+            display: flex;
+        }
+
+    .typewriter span::after{
+        height: 40%;
+    }
+
+    }
+
+    #menu-toggle:checked ~ .nav-container .links { 
+        display: flex; 
+    }
+    
+    #menu-toggle:checked + .menu-icon + .links {
+        display: flex;
+    }
 
 .profile-container {
     width: 300px;
@@ -278,12 +287,13 @@ content p{
     box-shadow: 0 0 15px rgba(109, 67, 0, 0.6);
     overflow: hidden;
   }
-  
-  .profile-container img {
+
+.profile-container img {
     width: 100%;
     height: 100%;
     object-fit: cover;
-  }  
+}
+    
   
 .contact-link {
     border: 2px solid rgb(109, 67, 0);
